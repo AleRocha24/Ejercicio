@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="MetodosPago" format="json">
+      <types:shape format="weave" example="examples/jsonMetodoPago-1.json"><![CDATA[%dw 2.0
+
+type MetodosPago = {|
+  first_name: String, 
+  last_name: String, 
+  bank_routing_number: String, 
+  bank_account_number: String, 
+  bank_account_type: String, 
+  bank_account_holder_type: String
+|} {"example": "{\\\"first_name\\\":\\\"\\\",\\\"last_name\\\":\\\"\\\",\\\"bank_routing_number\\\":\\\"\\\",\\\"bank_account_number\\\":\\\"\\\",\\\"bank_account_type\\\":\\\"\\\",\\\"bank_account_holder_type\\\":\\\"\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="MetodosPagoTrans" format="json">
+      <types:shape format="weave" example="examples/jsonMetodoPagoTrans-1.json"><![CDATA[%dw 2.0
+
+type MetodosPagoTrans = {|
+  payment_method: {|
+    bank_account: {|
+      first_name: String, 
+      last_name: String, 
+      bank_routing_number: String, 
+      bank_account_number: String, 
+      bank_account_type: String, 
+      bank_account_holder_type: String
+    |}
+  |}
+|} {"example": "{\\\"payment_method\\\":{\\\"bank_account\\\":{\\\"first_name\\\":\\\"\\\",\\\"last_name\\\":\\\"\\\",\\\"bank_routing_number\\\":\\\"\\\",\\\"bank_account_number\\\":\\\"\\\",\\\"bank_account_type\\\":\\\"\\\",\\\"bank_account_holder_type\\\":\\\"\\\"}}}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="Compra" format="json">
+      <types:shape format="weave" example="examples/jsonCompra.json"><![CDATA[%dw 2.0
+
+type Compra = {|
+  payment_method_token: String, 
+  amount: Number {"typeId": "int"}, 
+  currency_code: String
+|} {"example": "{\\\"payment_method_token\\\":\\\"\\\",\\\"amount\\\":0,\\\"currency_code\\\":\\\"\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="CompraTrans" format="json">
+      <types:shape format="weave" example="examples/jsonCompraTrans.json"><![CDATA[%dw 2.0
+
+type CompraTrans = {|
+  transaction: {|
+    payment_method_token: String, 
+    amount: Number {"typeId": "int"}, 
+    currency_code: String
+  |}
+|} {"example": "{\\\"transaction\\\":{\\\"payment_method_token\\\":\\\"\\\",\\\"amount\\\":0,\\\"currency_code\\\":\\\"\\\"}}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="Transactions" format="json">
+      <types:shape format="weave" example="examples/jsonTransactions.json"><![CDATA[%dw 2.0
+
+type Transactions = {|
+  transaction_token: String, 
+  amount: Number {"typeId": "int"}
+|} {"example": "{\\\"transaction_token\\\":\\\"\\\",\\\"amount\\\":0}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="TransactionsTrans" format="json">
+      <types:shape format="weave" example="examples/jsonTransactionsTrans.json"><![CDATA[%dw 2.0
+
+type TransactionsTrans = {|
+  transaction: {|
+    transaction_token: String, 
+    amount: Number {"typeId": "int"}
+  |}
+|} {"example": "{\\\"transaction\\\":{\\\"transaction_token\\\":\\\"\\\",\\\"amount\\\":0}}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#98516a9b-54f7-4b0f-b182-9f36eaec4d1e">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="MetodosPago"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="MetodosPagoTrans"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#7bbd4ac4-32dd-480c-a10f-2a153f4433f1">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="Compra"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="CompraTrans"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#26379af8-5395-4847-940d-48143659a87a">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="Transactions"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="TransactionsTrans"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
