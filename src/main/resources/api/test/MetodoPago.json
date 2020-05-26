@@ -1,5 +1,6 @@
 {
-
+    "payment_method": {
+        "bank_account": {	
             "first_name": "Ale",
             "last_name": "Rocha",
             "bank_routing_number": "021000021",
@@ -7,5 +8,6 @@
             "bank_account_type": "checking",
             "bank_account_holder_type": "personal"
     
-  
+        }
+    }
 }

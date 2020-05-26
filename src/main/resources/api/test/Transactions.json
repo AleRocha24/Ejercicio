@@ -1,5 +1,7 @@
 {
-  
-    "amount": 128
-  
+  "transaction": {
+    "payment_method_token": "tOdBo0RY8RKTwDMiqSNazXmLqH",
+    "amount": 100,
+    "currency_code": "USD"
+  }
 }

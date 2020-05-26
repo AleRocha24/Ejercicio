@@ -3,7 +3,16 @@
 type: object
 description: Entrada Transactions
 properties: 
- amount:
-     type: number 
+  transaction:
+    type: object
+    properties:
+      amount:
+       type: number 
+      payment_method_token:
+       type: string
+      currency_code:
+        type: string
+
+
 
 example: !include Transactions.json

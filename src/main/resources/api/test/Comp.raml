@@ -3,12 +3,15 @@
 type: object
 description: Entrada compra
 properties: 
-  payment_method_token:
-    type: string
-  amount:
-     type: number  
-  currency_code:
-     type: string
+      transaction:
+        type: object 
+        properties:     
+         payment_method_token:
+          type: string
+         amount:
+          type: number  
+         currency_code:
+          type: string
 
 
 example: !include Compra.json
