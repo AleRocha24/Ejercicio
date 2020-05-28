@@ -266,3 +266,137 @@ Json Salida :
 }
 
 
+
+
+*********** Petición 4 *********
+
+Esta es una peticion Goblar en ella puedes hacer referenca a lo 3 metodos anteriores 
+
+URL : http://localhost:8081/global
+
+
+Json: 
+
+
+ {
+        	
+           "Tipo_Peticion":"MetodoPago", ---> Aqui se hace referenca a las peticiones (MetodoPago,Compra,transactions )
+           
+            - - - - - - - - - - -- - - --- - - - - -- 
+            | "first_name": "Ale",                   |
+            |"last_name": "Rocha",                   |
+            |"bank_routing_number": "021000021",     |
+            |"bank_account_number": "9876543210",    |  ----> Anesar el json de la peticion solicutada    
+            |"bank_account_type": "checking",        |
+            |"bank_account_holder_type": "personal"  |
+             - - - - - - - - - - -  - - - - - - - -  - -
+}
+
+1.-  MetodoPago 
+
+{
+        	
+           	"Tipo_Peticion":"MetodoPago",
+            "first_name": "Ale",
+            "last_name": "Rocha",
+            "bank_routing_number": "021000021",
+            "bank_account_number": "9876543210",
+            "bank_account_type": "checking",
+            "bank_account_holder_type": "personal"
+}
+
+
+2.-  Compra
+
+{
+        	
+           "Tipo_Peticion":"Compra",
+            "payment_method_token": "7LmfWxOg2E3LQrWijG7aKYx0PG7",
+            "amount": 100,
+            "currency_code": "USD"
+          
+}
+
+
+3.- transactions 
+
+{
+        	
+           	"Tipo_Peticion":"transactions",
+           	"transaction_token":"1702AQT85jLSC5yleCNBM4qxNQA",
+             "amount": 128
+        
+          
+}
+
+
+
+
+*** Json de salida Ejemplo *** 
+
+Nota :Se muestra un version resumida del json origial con los datos mas relevantes 
+
+
+
+1- MetodoPago
+{
+    "transaction": {
+        "created": "2020-05-28T18:18:46Z",
+        "updated": "2020-05-28T18:18:46Z",
+        "succeeded": true,
+        "token": "3x0km8GDXgMI4U9prWyL5JXs16Y",
+        "amount": 100,
+        "payment_method": {
+            "token_method": "ZpZyg6gTAHgHzKBDBeDLtvQI8VU",
+            "created_method": "2020-05-28T18:18:16Z",
+            "updated_method": "2020-05-28T18:18:16Z",
+            "first_name_method": "Ale Rocha",
+            "last_name_method": "Ale",
+            "routing_number_method": "021",
+            "account_number_method": "3210"
+        }
+    }
+}
+
+
+2.-  Compra
+
+{
+    "transaction": {
+        "created": "2020-05-28T18:27:52Z",
+        "updated": "2020-05-28T18:27:52Z",
+        "succeeded": true,
+        "token": "9bKdf0pAzu3R1drhjZlpXnuSJqT",
+        "amount": 100,
+        "payment_method": {
+            "token_method": "HR4CleL8qml4EOPI50sQDw7mCAx",
+            "created_method": "2020-05-28T18:27:23Z",
+            "updated_method": "2020-05-28T18:27:23Z",
+            "first_name_method": "Ale Rocha",
+            "last_name_method": "Ale",
+            "routing_number_method": "021",
+            "account_number_method": "3210"
+        }
+    }
+}
+
+
+3.- Transactions
+
+
+{
+    "transaction": {
+        "message": "Succeeded!",
+        "created": "2020-05-28T18:29:33Z",
+        "updated": "2020-05-28T18:29:33Z",
+        "token": "WAAxRCR4xPGe9BetIQHXTzphNOI",
+        "amount": 128,
+        "gateway_token": "JuP3S8qy0c7ddteLNlvOIx67N7F",
+        "reference_token": "1702AQT85jLSC5yleCNBM4qxNQA"
+    }
+}
+
+
+
+
+

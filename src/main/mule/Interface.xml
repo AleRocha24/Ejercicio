@@ -23,5 +23,26 @@ http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/m
 		<http:listener doc:name="POST/transactions" doc:id="c38e839e-9538-4d2d-991c-87ceee1ecf9a" config-ref="HTTP_Listener_config" path="/transactions" allowedMethods="POST"/>
 		<flow-ref doc:name="PostFlowtransactions" doc:id="b2fd5ab1-dd89-4fe5-ba11-2129979765cc" name="PostFlowtransactions"/>
 	</flow>
+	<flow name="InterfaceFlow" doc:id="2cca540c-c217-46fc-9280-238422a47739" >
+		<http:listener doc:name="Post/Global" doc:id="8485551e-31ba-48fa-94ff-e279207c7da9" config-ref="HTTP_Listener_config" path="/global" allowedMethods="POST"/>
+		<set-variable value="payload" doc:name="Set Variable" doc:id="a76c976c-f4fe-44fd-ba9c-bf11dc11183f" variableName="Datos"/>
+		<choice doc:name="Choice" doc:id="f4dbde6a-12ae-41de-97cc-48d15ad765bd" >
+			<when expression="#[payload.Tipo_Peticion ==  'MetodoPago']">
+				<flow-ref doc:name="MetodoPago" doc:id="5ea7ff1c-769a-4f50-bdd6-f708adc7452c" name="PostFlowMetodoPago" />
+			</when>
+			<when expression="#[payload.Tipo_Peticion ==  'Compra']">
+				<flow-ref doc:name="PostFlowCompra" doc:id="c3ad9b7a-cb36-4ffe-970f-0f2f6dc4b637" name="PostFlowCompra" />
+			</when>
+			<when expression="payload.Tipo_Peticion ==  'transactions'">
+				<flow-ref doc:name="PostFlowtransactions" doc:id="2ae3cc8d-6127-4dfa-b432-5b64c78d92d7" name="PostFlowtransactions" />
+			</when>
+			<otherwise >
+				<set-payload value='#[{"Error":"Peticion no Encontrada",
+ "path":payload.Tipo_Peticion	
+	
+}]' doc:name="Set Payload" doc:id="922d6e3a-3554-4ade-89e7-5c67206bfbb3" />
+			</otherwise>
+		</choice>
+	</flow>
 	
 </mule>
